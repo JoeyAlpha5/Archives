@@ -1,0 +1,116 @@
+{% load  static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Jalome Chirwa"/>
+    <link rel="stylesheet" href="{% static 'web/index.css'%}"/>
+    <script type="text/javascript" src="{% static "web/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "web/index.js" %}"></script>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    <title>Edu-Champ</title>
+</head>
+<body>
+
+<!--bootstrap4 navigation bar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Edu-Champ</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      {% comment %} <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li> {% endcomment %}
+    </ul>
+    <form method="POST" class="form-inline my-2 my-lg-0" id="register">
+    {% csrf_token %}
+    {% if form.errors %}
+        <span id="formError">User does not exist</span>
+    {% endif %}
+     <span>Email:<span>{{ form.username }}
+    <span>Password:<span>{{ form.password }}
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+    </form>
+  </div>
+</nav>
+
+
+<!--bootstrap4 slider-->
+<div class="jumbotron jumbotron-fluid">
+  <div id="container">
+    <h1 class="lead" >Welcome to Edu-Champ</h1>
+    <p class="h4">Your one stop resource center for championing your education</p>
+    <p class="lead">We offer you free access to past exam papers, memos and educational videos to help you excel in your studies.  </p>
+    <p class="lead">As the Edu-Champ team we care about your academic excellence as well as sharpening your abilities to contribute significantly to your community. Education goes beyond passing your exams and getting your qualification.</p>
+    <button type="button" class="btn btn-success">Lear More</button>
+    <img src="{% static "web/bannerimg.svg" %}" id="bannerImg"/>
+  </div>
+
+
+  <div id="register">
+        {% csrf_token %}
+        {% if Message == "Account has been created" %}
+            <font id='formError' style='color:#4caf50;'><br>{{ Message }}</font>
+        {% else %}
+            <font id='formError'><br>{{ Message }}</font>
+        {% endif %}
+        <input type="text" class="form-control" name="username" id="username" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        <input type="email" class="form-control" name="email" id="email" placeholder="Email" aria-label="Username" aria-describedby="addon-wrapping">
+        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" aria-label="Username" aria-describedby="addon-wrapping">
+        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" aria-label="Username" aria-describedby="addon-wrapping">
+        <input type="password" class="form-control" name="password" id="password" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
+        <button type="button" onclick="register()"  id="registerBtn" class="btn btn-outline-success">Create Account</button>
+  </div>
+
+    
+
+</div>
+
+
+
+<script>
+
+function register(){
+  var username = $("#username").val();
+  var email = $("#email").val();
+  var first_name = $("#first_name").val();
+  var last_name = $("#last_name").val();
+  var password = $("#password").val();
+
+  $.ajax({
+    "type":"POST",
+    "dataType":"JSON",
+    "url":"/register/",
+    "data":{"csrfmiddlewaretoken": "{{ csrf_token }}", "type":"createUser","last_name":last_name,"first_name":first_name, "username":username, "email":email,"password":password},
+    "success":function(data){
+        if(data.Message == "Successful"){
+            alert("Your new account has been created");
+            document.getElementById("username").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("first_name").value = "";
+            document.getElementById("last_name").value = "";
+            document.getElementById("password").value = "";
+            alert("Account Created Successfully")
+        }else{
+          console.log(data.Message);
+          alert(data.Message);
+        }
+    }
+});
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+{% load  static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="author" content="Jalome Chirwa"/>
+    <link rel="stylesheet" href="{% static 'web/index.css'%}"/>
+    <script type="text/javascript" src="{% static "web/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "web/index.js" %}"></script>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    <title>Edu-Champ - Dashboard</title>
+</head>
+<body onload='getPapers()'>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Edu-Champ</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      {% comment %} <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li> {% endcomment %}
+    </ul>
+    <button onclick="logout()" id="logout" type="button" class="btn btn-danger">Logout</button>
+  </div>
+</nav>
+
+
+
+<ul id="leftPane" class="btn btn-dark">
+  <ul class="list-group">
+  <a id="leftPaneLinks" href="/dashboard/"><li class="list-group-item" id="active">Past papers</li></a>
+  <a id="leftPaneLinks" href="/dashboard/slides"><li class="list-group-item" id="inactive">Slides</li></a>
+  <a id="leftPaneLinks" href="/dashboard/videos"><li class="list-group-item" id="inactive">Videos</li></a>
+  <a id="leftPaneLinks" href="/dashboard/announcements"><li class="list-group-item" id="inactive">Announcements</li></a>
+  {% comment %} <li class="list-group-item" id="inactive">Profile</li>
+  <li class="list-group-item" id="inactive">Help</li> {% endcomment %}
+</ul>
+</ul>
+
+<div id="rightPane">
+
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+
+    <span id="loadingSpan" class="Lead">
+        Past Papers
+    </span>
+
+    <table  class="table" style='margin-top: 85px;'>
+        <thead class="thead-light">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Description</th>
+            <th scope="col">Download</th>
+            </tr>
+        </thead>
+        <tbody id="table">
+        </tbody>
+    </table>
+
+</div>
+
+
+<script>
+    function getPapers(){
+        $.ajax({
+                "type":"POST",
+                "url":"/dashboard/",
+                "dataType":"json",
+                "async":true,
+                "data":{  "csrfmiddlewaretoken": "{{ csrf_token }}", "type":"getPapers"},
+                "success":function(data){
+                    console.log(data);
+                    displayPapers(data);
+                }
+            });  
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+div#container {
+    float: left;
+    width: 55%;
+    text-align: left;
+    margin-left: 75px;
+    margin-top: 40px;
+}
+
+.jumbotron.jumbotron-fluid {
+    text-align: -webkit-center;
+    float: left;
+    height: auto;
+}
+
+img#bannerImg {
+    float: right;
+    width: 412px;
+    margin-left: 5%;
+    position: absolute;
+}
+
+#register{
+    margin-right: 30px;
+}
+
+#formError{
+    color: #F44336;
+}
+
+input {
+    margin-right: 20px;
+    border: 0px;
+    border-radius: 2px;
+    padding: 5px;
+    background: #e9ecef;
+    outline: none;
+    margin-left: 12px !important;
+}
+
+#leftPaneLinks{
+    color: white;
+}
+
+
+.card {
+    float: left;
+    margin-left: 13px;
+    height: 300px;
+    margin-top: 40px;
+}
+
+div#card {
+    float: unset !important;
+    width: 80% !important;
+    height: auto;
+    margin-top: 30px;
+}
+
+#register .form-control {
+    width: 86% !important;
+    margin-top: 32px !important;
+}
+
+#register #registerBtn {
+    margin-top: 20px !important;
+}
+
+nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.23);
+    padding: 0 !important;
+    height: 60px !important;
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+}
+
+#leftPane{
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    border-radius: 0;
+    padding: 0;
+}
+
+ul#leftPane ul {
+    margin-top: 69px;
+}
+
+.list-group-item{
+    background: transparent !important;
+    text-align: left;
+}
+
+.navbar-light .navbar-brand {
+    color: white !important;
+    background: black;
+    padding: 5px;
+    margin-left: 15px;
+}
+
+
+#logout{
+    margin-right: 30px;
+}
+
+#rightPane {
+    float: left;
+    margin-top: 90px;
+    margin-left: 24%;
+    width: 75%;
+}
+
+span#loadingSpan {
+    margin-left: 15px;
+    padding-top: 40px;
+    position: absolute;
+}
+
+.table{
+    width: 100% !important;
+}
+
+.jumbotron.jumbotron-fluid {
+    position: fixed;
+    height: 100%;
+}
+
+div#register {
+    width: 405px;
+    height: 470px;
+    background: white;
+    float: left;
+    margin-left: 57px;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.18);
+}
+
+.download{
+    color: #0062cc;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#inactive{
+    opacity: 0.5;
+}
+
+#inactive:hover{
+    opacity: 1;
+    text-decoration: underline;
+}
